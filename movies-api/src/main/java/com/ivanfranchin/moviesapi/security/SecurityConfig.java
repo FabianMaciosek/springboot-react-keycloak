@@ -19,6 +19,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(HttpMethod.GET, "/api/movies", "/api/movies/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/backtests/**").permitAll()
                         .requestMatchers("/api/movies/*/comments").hasAnyRole(MOVIES_ADMIN, MOVIES_USER)
                         .requestMatchers("/api/movies", "/api/movies/**").hasRole(MOVIES_ADMIN)
                         .requestMatchers("/api/userextras/me").hasAnyRole(MOVIES_ADMIN, MOVIES_USER)

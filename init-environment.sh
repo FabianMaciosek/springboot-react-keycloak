@@ -68,3 +68,6 @@ echo
 echo "Environment Up and Running"
 echo "=========================="
 echo
+
+
+# command for terminal with mvn - .\mvnw clean spring-boot:run --% -Dspring-boot.run.jvmArguments="-Dserver.port=9080"

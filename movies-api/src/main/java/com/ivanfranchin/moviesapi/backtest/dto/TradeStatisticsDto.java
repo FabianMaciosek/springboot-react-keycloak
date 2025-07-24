@@ -1,0 +1,48 @@
+package com.ivanfranchin.moviesapi.backtest.dto;
+
+import java.time.Duration;
+import java.time.Instant;
+
+public record TradeStatisticsDto(
+        Instant startDateTime,
+        Instant endDateTime,
+        int totalNumberOfTrades,
+        int numberOfWinningTrades,
+        int numberOfLosingTrades,
+        String totalProfitLoss,
+        String totalProfit,
+        String totalLoss,
+        String largestProfit,
+        String largestLoss,
+        String averageProfitLoss,
+        String averageProfit,
+        String averageLoss,
+        Duration averageTradeDuration,
+        Duration averageWinningTradeDuration,
+        Duration averageLosingTradeDuration,
+        Duration medianTradeDuration,
+        Duration medianWinningTradeDuration,
+        Duration medianLosingTradeDuration,
+        int maxConsecutiveWinningTrades,
+        int maxConsecutiveLosingTrades,
+        String profitLossRatio,
+        String winLossRatio,
+        String winRate,
+        String lossRate,
+        String averageMAE,
+        String averageMFE,
+        String largestMAE,
+        String largestMFE,
+        String maximumClosedTradeDrawdown,
+        String maximumIntraTradeDrawdown,
+        String profitLossStandardDeviation,
+        String profitLossDownsideDeviation,
+        String profitFactor,
+        String sharpeRatio,
+        String sortinoRatio,
+        String profitToMaxDrawdownRatio,
+        String maximumEndTradeDrawdown,
+        String averageEndTradeDrawdown,
+        Duration maximumDrawdownDuration,
+        String totalFees) {
+}

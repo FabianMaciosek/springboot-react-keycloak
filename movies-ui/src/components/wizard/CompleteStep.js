@@ -1,13 +1,13 @@
-import React from 'react'
-import { Card } from 'semantic-ui-react'
-import MovieCard from '../home/MovieCard'
+import React from 'react';
+import { Card } from 'semantic-ui-react';
+import StrategyCard from '../home/StrategyCard';
 
-function CompleteStep({ movie }) {
+function CompleteStep({ strategy }) {
   return (
     <Card.Group doubling centered>
-      <MovieCard movie={movie} link={false} />
+      <StrategyCard strategy={strategy} link={false} />
     </Card.Group>
-  )
+  );
 }
 
-export default CompleteStep
+export default CompleteStep;

@@ -1,37 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { Container } from 'semantic-ui-react'
-import { handleLogError } from '../misc/Helpers'
-import { moviesApi } from '../misc/MoviesApi'
-import MovieList from './MovieList'
+import React, { useEffect, useState } from 'react';
+import { Container } from 'semantic-ui-react';
+import { handleLogError } from '../misc/Helpers';
+import { strategiesApi } from '../misc/StrategiesApi';
+import StrategyList from './StrategyList';
 
 function Home() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [movies, setMovies] = useState([])
+  const [isLoading, setIsLoading] = useState(false);
+  const [strategies, setStrategies] = useState([]);
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      setIsLoading(true)
+    const fetchStrategies = async () => {
+      setIsLoading(true);
       try {
-        const response = await moviesApi.getMovies()
-        const movies = response.data
-
-        setMovies(movies)
+        const response = await strategiesApi.getStrategies();
+        setStrategies(response.data);
       } catch (error) {
-        handleLogError(error)
+        handleLogError(error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
-    fetchMovies()
-  }, [])
+    };
+    fetchStrategies();
+  }, []);
 
-  return (
-    isLoading ? <></> : (
-      <Container>
-        <MovieList movies={movies} />
-      </Container>
-    )
-  )
+  return isLoading ? null : (
+    <Container>
+      <StrategyList strategies={strategies} />
+    </Container>
+  );
 }
 
-export default Home
+export default Home;

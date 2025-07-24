@@ -1,16 +1,35 @@
+// src/components/misc/MoviesApi.js
 import axios from 'axios'
 import { config } from '../../Constants'
 
+/**
+ * API client for user extras (avatars, settings) and movie-based endpoints.
+ * Used by UserSettings and legacy movie components.
+ */
 export const moviesApi = {
+  getUserExtrasMe,
+  saveUserExtrasMe,
+  // legacy movie methods (no-op until backend supports them):
   getMovies,
   getMovie,
   saveMovie,
   deleteMovie,
-  addMovieComment,
-  getUserExtrasMe,
-  saveUserExtrasMe
+  addMovieComment
 }
 
+function getUserExtrasMe(token) {
+  return instance.get('/api/userextras/me', {
+    headers: { 'Authorization': bearerAuth(token) }
+  })
+}
+
+function saveUserExtrasMe(token, userExtra) {
+  return instance.post('/api/userextras/me', userExtra, {
+    headers: { 'Authorization': bearerAuth(token) }
+  })
+}
+
+// Legacy movie API stubs; return 404 by default until BE is implemented
 function getMovies() {
   return instance.get('/api/movies')
 }
@@ -37,34 +56,20 @@ function addMovieComment(imdbId, comment, token) {
   })
 }
 
-function getUserExtrasMe(token) {
-  return instance.get(`/api/userextras/me`, {
-    headers: { 'Authorization': bearerAuth(token) }
-  })
-}
-
-function saveUserExtrasMe(token, userExtra) {
-  return instance.post(`/api/userextras/me`, userExtra, {
-    headers: { 'Authorization': bearerAuth(token) }
-  })
-}
-
-// -- Axios
-
+// -- Axios instance
 const instance = axios.create({
   baseURL: config.url.API_BASE_URL
 })
 
-instance.interceptors.response.use(response => {
-  return response
-}, function (error) {
-  if (error.response.status === 404) {
-    return { status: error.response.status }
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 404) {
+      return { status: 404 }
+    }
+    return Promise.reject(error)
   }
-  return Promise.reject(error.response)
-})
-
-// -- Helper functions
+)
 
 function bearerAuth(token) {
   return `Bearer ${token}`
